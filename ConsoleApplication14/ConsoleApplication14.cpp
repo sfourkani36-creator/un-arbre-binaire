@@ -228,72 +228,66 @@ Noeud* Max(Noeud* R)
 }
 
 int main() {
-
-  
     Noeud* racine = NULL;
-    int valeurs[] = { 30, 20, 40, 10, 25, 22, 50, 5 };
-    int n = sizeof(valeurs) / sizeof(valeurs[0]);
+    int choix, val;
+    int tabEquilibre[] = { 1,2,3,4,5,6,7 };
+    int nTab = sizeof(tabEquilibre) / sizeof(tabEquilibre[0]);
 
-    printf("Insertion AVL : ");
-    for (int i = 0; i < n; i++) {
-        printf("%d ", valeurs[i]);
-        racine = insererAVL(racine, valeurs[i]);
+    while (1) {
+        printf("\n1. Inserer un noeud\n");
+        printf("2. Supprimer un noeud\n");
+        printf("3. Parcours Prefixe\n");
+        printf("4. Parcours Infixe\n");
+        printf("5. Parcours Postfixe\n");
+        printf("6. Parcours par Niveau\n");
+        printf("7. Construire arbre equilibre a partir d'un tableau trie\n");
+        printf("8. Recherche d'une valeur\n");
+        printf("9. Minimum et Maximum\n");
+        printf("0. Quitter\n");
+        printf("Votre choix : ");
+        scanf("%d", &choix);
+
+        switch (choix) {
+        case 1:
+            printf("Valeur a inserer : "); scanf("%d", &val);
+            racine = insererAVL(racine, val);
+            break;
+        case 2:
+            printf("Valeur a supprimer : "); scanf("%d", &val);
+            racine = suppNoeud(racine, val);
+            break;
+        case 3:
+            printf("Prefixe : "); Prefixe(racine); printf("\n");
+            break;
+        case 4:
+            printf("Infixe : "); Infixe(racine); printf("\n");
+            break;
+        case 5:
+            printf("Postfixe : "); Postfixe(racine); printf("\n");
+            break;
+        case 6:
+            printf("Parcours par niveau : "); ParcoursParNiveau(racine); printf("\n");
+            break;
+        case 7:
+            racine = construireABREquilibre(tabEquilibre, 0, nTab - 1);
+            printf("Arbre equilibre construit.\n");
+            break;
+        case 8:
+            printf("Valeur a rechercher : "); scanf("%d", &val);
+            Noeud* trouve = search(racine, val);
+            if (trouve) printf("Valeur %d trouvee\n", val);
+            else printf("Valeur %d non trouvee\n", val);
+            break;
+        case 9:
+            if (racine) {
+                printf("Min = %d\n", Min(racine)->data);
+                printf("Max = %d\n", Max(racine)->data);
+            }
+            else printf("Arbre vide\n");
+            break;
+        case 0:
+            exit(0);
+        }
     }
-    printf("\n\n");
-
-
-    
-    printf("Parcours Prefixe  : ");
-    Prefixe(racine);
-
-    printf("\nParcours Infixe   : ");
-    Infixe(racine);
-
-    printf("\nParcours Postfixe : ");
-    Postfixe(racine);
-
-    printf("\nParcours Par Niveau : ");
-    ParcoursParNiveau(racine);
-
-    printf("\n\n");
-
-
- 
-    int valCherchee = 25;
-    Noeud* trouve = search(racine, valCherchee);
-
-    if (trouve != NULL)
-        printf("Valeur %d trouvee dans l'arbre.\n", valCherchee);
-    else
-        printf("Valeur %d NON trouvee.\n", valCherchee);
-
-
-    
-    printf("Valeur MIN = %d\n", Min(racine)->data);
-    printf("Valeur MAX = %d\n\n", Max(racine)->data);
-
-
-    
-    int aSupprimer = 20;
-    printf("Suppression du noeud %d...\n", aSupprimer);
-    racine = suppNoeud(racine, aSupprimer);
-
-    printf("Infixe apres suppression : ");
-    Infixe(racine);
-    printf("\n\n");
-
-
-    
-    int tableauTrie[] = { 1, 2, 3, 4, 5, 6, 7 };
-    int m = sizeof(tableauTrie) / sizeof(tableauTrie[0]);
-
-    Noeud* arbreEquilibre = construireABREquilibre(tableauTrie, 0, m - 1);
-
-    printf("Arbre Equilibre (Infixe) : ");
-    Infixe(arbreEquilibre);
-    printf("\n\n");
-
-
-    return 0;
 }
 
